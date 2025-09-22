@@ -1,6 +1,6 @@
 html {
-    --text: #111314;
-    --background: #f80606;
+    --text: #f8f8f8;
+    --background: #0e0000;
     --primary: #4297c1;
     --secondary: #81c7ea;
     --accent: #48bdf7;
@@ -9,10 +9,11 @@ html {
 body {
     color: var(--text);
     background: var(--background);
-
+    font-family:"Bitcount ink";
 }
 h1,
 h2,
 h3 {
     color: var(--primary);
+    font-family:";
 }
