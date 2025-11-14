@@ -86,7 +86,8 @@
             greetingOutPut.textContext = "Hello " + name + "you are" + "AGE years old!"
             // TODO: Display a message like "Hello NAME, you are AGE years old!"
             // Challenge: If age < 13, show "You're just a kid!" instead.
-        if (age < 13) {
+       
+            if (age < 13) {
             greetingOutput.textContent = "You're just a kid";
         }
     });
@@ -94,6 +95,10 @@
         const colorInput = document.getElementById("colorInput");
         const volumeInput = document.getElementById("volumeInput");
         const colorOutput = document.getElementById("colorOutput");
+        colorInput.addEventListener("input")
+        let hexColor =colorInput.value;
+       colorOutput.style.backgroundcolor = hexColor;
+
         colorOutput.textContent = "test Content."
         // TODO: Update the background color of colorOutput whenever the color input changes.
         // Challenge: Also display the hex code and volume value dynamically.
@@ -111,8 +116,22 @@
         const modeOutput = document.getElementById("modeOutput");
 
         btnSubmit.addEventListener("click", () => {
+            let modes = document.getElementbyName("mode");
+            let selectedMode;
+            for (let mode of modes)
+                if (mode.checked) {
+                    selectedMode = mode.value;
+                    break;
+         }
+        
+
             // TODO: Find which radio button is checked and display it.
-            // Challenge: Include whether the user subscribed or not.
+           //if (boolean) OR if (boolean == true) check if "boolean" is true
+
+           //If the light mode is checked, display Light
+           //If the dark mode is checked, display Dark
+           //If the system mode is checked, display System
+           // Challenge: Include whether the user subscribed or not.
         });
     </script>
 </body>
