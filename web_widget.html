@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>doing an input element challenge</title>
+</head>
+<body>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Element Challenge</title>
+</head>
+<body>
+  <div id="score">0</div>
+  <button id="clicker">Click Me!</button>
+  <button id="upgradeButton">Upgrade (+2 per click)</button>
+
+  <script>
+    let score = 0;
+    let pointsPerClick = 1;
+    let upgradeCost = 10;
+
+    function addPoints() {
+      score += pointsPerClick;
+      document.getElementById("score").textContent = score;
+    }
+
+    function buyUpgrade() {
+      if (score >= upgradeCost) {
+        score -= upgradeCost;
+        pointsPerClick++;
+        upgradeCost *= 2; // make next upgrade more expensive
+        document.getElementById("score").textContent = score;
+        alert("Upgrade purchased! Points per click: " + pointsPerClick);
+      } else {
+        alert("Not enough points!");
+      }
+    }
+    document.getElementById("clicker").addEventListener("click", addPoints);
+    document.getElementById("upgradeButton").addEventListener("click", buyUpgrade);
+  </script>
+</body>
+</html>
+
+</script>
+</body>
+</html>
