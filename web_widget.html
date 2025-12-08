@@ -44,7 +44,7 @@
     }
 
     function updateProgress() {
-      let progress = Math.min((score / goal) * 100, 100);
+      let progress = Math.min((score / goal) *- 100, 100);
       let bar = document.getElementById("progressBar");
       bar.style.width = progress + "%";
       bar.innerText = Math.floor(progress) + "%";
@@ -69,7 +69,7 @@
         score -= upgradeCost;
         pointsPerClick++;
         upgradeCost *= 2;
-        updateScore();
+        updateScore(); 
         alert("Upgrade purchased! Points per click: " + pointsPerClick);
       } else {
         alert("Not enough points!");
