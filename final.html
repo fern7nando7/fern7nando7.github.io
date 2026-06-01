@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Single Player Chess Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(8, 70px);
+            grid-template-rows: repeat(8, 70px);
+            border: 3px solid black;
+        }
+
+        .square {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            cursor: pointer;
+        }
+
+        .light {
+            background: #f0d9b5;
+        }
+
+        .dark {
+            background: #b58863;
+        }
+
+        .selected {
+            outline: 4px solid yellow;
+        }
+
+        #status {
+            margin-left: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="board"></div>
+
+<div id="status">
+    <h2>Chess</h2>
+    <p id="turn"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
+
+<script>
+const game = new Chess();
+
+const board = document.getElementById("board");
+const turnText = document.getElementById("turn");
+
+let selectedSquare = null;
+
+const pieces = {
+    p: "♟",
+    r: "♜",
+    n: "♞",
+    b: "♝",
+    q: "♛",
+    k: "♚",
+    P: "♙",
+    R: "♖",
+    N: "♘",
+    B: "♗",
+    Q: "♕",
+    K: "♔"
+};
+
+function renderBoard() {
+    board.innerHTML = "";
+
+    const position = game.board();
+
+    for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+
+            const square = document.createElement("div");
+
+            square.classList.add(
+                "square",
+                (row + col) % 2 === 0 ? "light" : "dark"
+            );
+
+            const file = String.fromCharCode(97 + col);
+            const rank = 8 - row;
+            const squareName = file + rank;
+
+            square.dataset.square = squareName;
+
+            const piece = position[row][col];
+
+            if (piece) {
+                const symbol =
+                    piece.color === "w"
+                        ? pieces[piece.type.toUpperCase()]
+                        : pieces[piece.type];
+
+                square.textContent = symbol;
+            }
+
+            square.addEventListener("click", () => handleClick(squareName));
+
+            if (selectedSquare === squareName) {
+                square.classList.add("selected");
+            }
+
+            board.appendChild(square);
+        }
+    }
+
+    turnText.textContent =
+        "Turn: " + (game.turn() === "w" ? "White" : "Black");
+
+    if (game.in_checkmate()) {
+        turnText.textContent += " — CHECKMATE";
+    } else if (game.in_check()) {
+        turnText.textContent += " — CHECK";
+    }
+}
+
+function handleClick(square) {
+
+    if (!selectedSquare) {
+        selectedSquare = square;
+        renderBoard();
+        return;
+    }
+
+    const move = game.move({
+        from: selectedSquare,
+        to: square,
+        promotion: "q"
+    });
+
+    selectedSquare = null;
+
+    if (move === null) {
+        renderBoard();
+        return;
+    }
+
+    renderBoard();
+}
+
+renderBoard();
+</script>
+
+</body>
+</html>
